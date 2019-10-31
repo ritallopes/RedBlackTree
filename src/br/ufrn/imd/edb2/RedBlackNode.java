@@ -7,6 +7,10 @@ public class RedBlackNode<T extends Comparable<T>> {
     private NodeColor color;
     private T value;
 
+    public RedBlackNode(){
+        this.value = null;
+    }
+
     public RedBlackNode(T value){
         this.value = value;
         this.color = NodeColor.Red;
@@ -35,6 +39,9 @@ public class RedBlackNode<T extends Comparable<T>> {
     public void setValue(T value) {
         this.value = value;
     }
+
+
+
 
 
 
