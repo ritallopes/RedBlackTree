@@ -8,6 +8,11 @@ public class RedBlackTree<T extends Comparable<T>>{
         this.root = root;
         this.root.setNodeColor(NodeColor.Black);
     }
+
+    public RedBlackTree() {
+        this.root = null;
+    }
+
     public RedBlackNode getRoot() {
         return root;
     }
@@ -19,14 +24,18 @@ public class RedBlackTree<T extends Comparable<T>>{
     private RedBlackNode<T> insert(RedBlackNode<T> node){
         ///Se a árvore está vazia, pinte o nó de preto
         if (this.root == null){
+            this.root = node;
             this.root.setNodeColor(NodeColor.Black);
             return this.root;
         }
+
         
 
         ///Se o pai é preto, nada precisa ser feito, pois a inserção do
         //nó não viola nenhuma propriedade
-        if (node.getParent().getNodeColor().equals(NodeColor.Black)){
+        RedBlackNode<T> parent = node.getParent();
+
+        if (parent.getNodeColor().equals(NodeColor.Black)){
             if (node.getValue().compareTo(node.getParent().getValue()) < 0){
                 node.getParent().setLeft(insert(node.getLeft()));
             }
@@ -38,7 +47,6 @@ public class RedBlackTree<T extends Comparable<T>>{
             if (node.getValue().compareTo(node.getParent().getValue()) > 0){
                 node.getParent().setRight(insert(node.getRight()));
             }
-
             return node.getParent();//é para retorna o pai?
         }
 
@@ -75,6 +83,12 @@ public class RedBlackTree<T extends Comparable<T>>{
 
         return (null);
 
+    }
+
+    public void printTree(){
+        if (this.root != null) {
+            this.root.printNode();
+        }
     }
 
 }

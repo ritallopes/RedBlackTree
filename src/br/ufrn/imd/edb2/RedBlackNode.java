@@ -1,5 +1,7 @@
 package br.ufrn.imd.edb2;
 
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
+
 public class RedBlackNode<T extends Comparable<T>> {
     private RedBlackNode<T> left    = null;
     private  RedBlackNode<T> right  = null;
@@ -40,11 +42,16 @@ public class RedBlackNode<T extends Comparable<T>> {
         this.value = value;
     }
 
+    public void printNode() {
+        System.out.println(this.value.toString());
 
+        if (getLeft() != null){
+            getLeft().printNode();
+        }
 
+        if (getRight()!=null){
+            getRight().printNode();
+        }
 
-
-
-
-
+    }
 }
