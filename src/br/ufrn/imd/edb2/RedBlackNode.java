@@ -1,13 +1,12 @@
 package br.ufrn.imd.edb2;
 
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
 public class RedBlackNode<T extends Comparable<T>> {
-    private RedBlackNode<T> left    = null;
-    private  RedBlackNode<T> right  = null;
+    private RedBlackNode<T> left;
+    private  RedBlackNode<T> right;
     private  RedBlackNode<T> parent = null;
     private NodeColor color;
-    private T value;
+    private T value = null;
 
     public RedBlackNode(){
         this.value = null;

@@ -13,9 +13,8 @@ public class Main {
 
         tree.insert(p1);
         tree.insert(p2);
-        tree.insert(p3);
+       // tree.insert(p3);
 
-        tree.printTree();
     }
 
 

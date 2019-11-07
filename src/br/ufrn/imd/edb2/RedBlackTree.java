@@ -18,70 +18,76 @@ public class RedBlackTree<T extends Comparable<T>>{
     }
 
     public void insert(T value){
-        this.root = insert(new RedBlackNode<T>(value));
+        RedBlackNode<T> node = new RedBlackNode<>(value);
+        node.setParent(root);
+        this.root = insert(node);
     }
 
     private RedBlackNode<T> insert(RedBlackNode<T> node){
+
         ///Se a árvore está vazia, pinte o nó de preto
-        if (this.root == null){
-            this.root = node;
-            this.root.setNodeColor(NodeColor.Black);
-            return this.root;
+        if (node.getParent() == null) {
+            node.setNodeColor(NodeColor.Black);
+            node.setParent(this.root);
+            return node;
         }
 
-        
 
+
+        if (node.getValue().compareTo(node.getParent().getValue()) == 0){
+            node.getParent().setValue(node.getValue());
+        }
+
+        if (node.getValue().compareTo(node.getParent().getValue()) < 0){
+            node.setParent(node.getParent().getLeft());
+            node.getParent().setLeft(insert(node));
+        }
+
+        if (node.getValue().compareTo(node.getParent().getValue()) > 0){
+            node.setParent(node.getParent().getRight());
+            insert(node).setRight(node.getParent());
+
+        }
+
+        return node;
+    }
+
+    private RedBlackNode<T> balance(RedBlackNode<T> node) {
         ///Se o pai é preto, nada precisa ser feito, pois a inserção do
         //nó não viola nenhuma propriedade
+
         RedBlackNode<T> parent = node.getParent();
 
-        if (parent.getNodeColor().equals(NodeColor.Black)){
-            if (node.getValue().compareTo(node.getParent().getValue()) < 0){
-                node.getParent().setLeft(insert(node.getLeft()));
-            }
 
-            if (node.getValue().compareTo(node.getParent().getValue()) == 0){
-                node.getParent().setValue(node.getValue());
-            }
-
-            if (node.getValue().compareTo(node.getParent().getValue()) > 0){
-                node.getParent().setRight(insert(node.getRight()));
-            }
-            return node.getParent();//é para retorna o pai?
+        if (parent.getNodeColor() == NodeColor.Black){
+            return node;//é para retorna o pai?
         }
 
+//        ///Se o tio for vermelho, modificamos a cor do pai do tio e do
+//        //avô
+//        //• Repetimos o reparo no avô (ele pode ser a raiz)
 
-        ///Se o tio for vermelho, modificamos a cor do pai do tio e do
-        //avô
-        //• Repetimos o reparo no avô (ele pode ser a raiz)
-        if (node.getParent().getParent().getRight().equals(node.getParent())){
-            if(node.getParent().getParent().getLeft().getNodeColor().equals(NodeColor.Red) ){
-                node.getParent().getParent().setNodeColor(node.getParent().getParent().getNodeColor().equals(NodeColor.Red)?NodeColor.Red:NodeColor.Black);
-                return node.getParent();
-            }
-        }else{
-            if(node.getParent().getParent().getRight().getNodeColor().equals(NodeColor.Red) ){
-                node.getParent().getParent().setNodeColor(node.getParent().getParent().getNodeColor().equals(NodeColor.Red)?NodeColor.Red:NodeColor.Black);
-                return node.getParent();
-
-            }
+        if ((parent.getRight().getNodeColor() == NodeColor.Red) && (parent.getRight() != node)){
+            
         }
-
-//        if (node.getValue().compareTo(parent.getValue()) < 0){
-//            parent.setLeft(insert(node, parent.getLeft()));
-//            return parent;
-//        }
 //
-//        if (node.getValue().compareTo(parent.getValue()) == 0){
-//            parent.setValue(node.getValue());
-//            return parent;
-//        }
+////        if (node.getValue().compareTo(parent.getValue()) < 0){
+////            parent.setLeft(insert(node, parent.getLeft()));
+////            return parent;
+////        }
+////
+////        if (node.getValue().compareTo(parent.getValue()) == 0){
+////            parent.setValue(node.getValue());
+////            return parent;
+////        }
+////
+////        if (node.getValue().compareTo(parent.getValue()) > 0){
+////            parent.setRight(insert(node, parent.getRight()));
+////        }
 //
-//        if (node.getValue().compareTo(parent.getValue()) > 0){
-//            parent.setRight(insert(node, parent.getRight()));
-//        }
+//        return (null);
 
-        return (null);
+
 
     }
 
